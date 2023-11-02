@@ -1,5 +1,5 @@
 {
-  "firstLayout": "",
+  "firstLayout": "Untitled scene",
   "gdVersion": {
     "build": 99,
     "major": 4,
@@ -204,6 +204,18 @@
           "name": "testCode",
           "type": "string",
           "value": ""
+        },
+        {
+          "folded": true,
+          "name": "codeChildMatch",
+          "type": "number",
+          "value": -1
+        },
+        {
+          "folded": true,
+          "name": "childIndex",
+          "type": "number",
+          "value": 0
         }
       ],
       "instances": [
@@ -335,6 +347,21 @@
           "x": 854,
           "y": 94,
           "zOrder": 7,
+          "numberProperties": [],
+          "stringProperties": [],
+          "initialVariables": []
+        },
+        {
+          "angle": 0,
+          "customSize": false,
+          "height": 0,
+          "layer": "",
+          "name": "NewText3",
+          "persistentUuid": "dbff99c5-c4e6-41b3-8dfb-38842f8bd040",
+          "width": 0,
+          "x": 126,
+          "y": 286,
+          "zOrder": 8,
           "numberProperties": [],
           "stringProperties": [],
           "initialVariables": []
@@ -757,6 +784,27 @@
             "g": 0,
             "r": 0
           }
+        },
+        {
+          "assetStoreId": "",
+          "bold": false,
+          "italic": false,
+          "name": "NewText3",
+          "smoothed": true,
+          "type": "TextObject::Text",
+          "underlined": false,
+          "variables": [],
+          "effects": [],
+          "behaviors": [],
+          "string": "Last Code\n",
+          "font": "",
+          "textAlignment": "left",
+          "characterSize": 20,
+          "color": {
+            "b": 0,
+            "g": 0,
+            "r": 0
+          }
         }
       ],
       "objectsFolderStructure": {
@@ -782,6 +830,9 @@
           },
           {
             "objectName": "NewText2"
+          },
+          {
+            "objectName": "NewText3"
           }
         ]
       },
@@ -823,7 +874,7 @@
               },
               "parameters": [
                 "code",
-                "\"DRDRDR\""
+                "\"DRDRD\""
               ]
             },
             {
@@ -892,7 +943,7 @@
               "type": "BuiltinCommonInstructions::ForEachChildVariable",
               "iterableVariableName": "code",
               "valueIteratorVariableName": "child",
-              "keyIteratorVariableName": "",
+              "keyIteratorVariableName": "childIndex",
               "conditions": [],
               "actions": [
                 {
@@ -903,7 +954,7 @@
                     "NewText",
                     "Text",
                     "+",
-                    "child+ NewLine()"
+                    "VariableString(childIndex)+\": \" +VariableString(child)+ NewLine()"
                   ]
                 }
               ]
@@ -948,7 +999,7 @@
               "type": "BuiltinCommonInstructions::ForEachChildVariable",
               "iterableVariableName": "code",
               "valueIteratorVariableName": "child",
-              "keyIteratorVariableName": "",
+              "keyIteratorVariableName": "childIndex",
               "conditions": [],
               "actions": [],
               "events": [
@@ -965,7 +1016,7 @@
                         "value": "BuiltinCommonInstructions::CompareStrings"
                       },
                       "parameters": [
-                        "VariableString(testCode)+ CodeGroup.VariableString(ID)",
+                        "testCode+ CodeGroup.ID",
                         "=",
                         "SubStr(child, 0,counter+1)"
                       ]
@@ -990,6 +1041,16 @@
                         "Flash",
                         "1",
                         ""
+                      ]
+                    },
+                    {
+                      "type": {
+                        "value": "ModVarScene"
+                      },
+                      "parameters": [
+                        "codeChildMatch",
+                        "=",
+                        "childIndex"
                       ]
                     }
                   ]
@@ -1065,6 +1126,16 @@
                     "=",
                     "\"\""
                   ]
+                },
+                {
+                  "type": {
+                    "value": "ModVarScene"
+                  },
+                  "parameters": [
+                    "codeChildMatch",
+                    "=",
+                    "-1"
+                  ]
                 }
               ]
             },
@@ -1095,6 +1166,16 @@
                 },
                 {
                   "type": {
+                    "value": "ModVarSceneTxt"
+                  },
+                  "parameters": [
+                    "testCode",
+                    "=",
+                    "\"\""
+                  ]
+                },
+                {
+                  "type": {
                     "value": "Flash::Flash::Flash"
                   },
                   "parameters": [
@@ -1103,16 +1184,153 @@
                     "3",
                     ""
                   ]
+                }
+              ],
+              "events": [
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "VarScene"
+                      },
+                      "parameters": [
+                        "codeChildMatch",
+                        "=",
+                        "0"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                      },
+                      "parameters": [
+                        "NewText3",
+                        "Text",
+                        "+",
+                        "\"code 0\" + NewLine()"
+                      ]
+                    }
+                  ]
                 },
                 {
-                  "type": {
-                    "value": "ModVarSceneTxt"
-                  },
-                  "parameters": [
-                    "testCode",
-                    "=",
-                    "\"\""
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "VarScene"
+                      },
+                      "parameters": [
+                        "codeChildMatch",
+                        "=",
+                        "1"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                      },
+                      "parameters": [
+                        "NewText3",
+                        "Text",
+                        "+",
+                        "\"code 1\" + NewLine()"
+                      ]
+                    }
                   ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "VarScene"
+                      },
+                      "parameters": [
+                        "codeChildMatch",
+                        "=",
+                        "2"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                      },
+                      "parameters": [
+                        "NewText3",
+                        "Text",
+                        "+",
+                        "\"code 2\" + NewLine()"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "VarScene"
+                      },
+                      "parameters": [
+                        "codeChildMatch",
+                        "=",
+                        "3"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                      },
+                      "parameters": [
+                        "NewText3",
+                        "Text",
+                        "+",
+                        "\"code 3\" + NewLine()"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [
+                    {
+                      "type": {
+                        "value": "VarScene"
+                      },
+                      "parameters": [
+                        "codeChildMatch",
+                        "=",
+                        "4"
+                      ]
+                    }
+                  ],
+                  "actions": [
+                    {
+                      "type": {
+                        "value": "TextContainerCapability::TextContainerBehavior::SetValue"
+                      },
+                      "parameters": [
+                        "NewText3",
+                        "Text",
+                        "+",
+                        "\"code 4\" + NewLine()"
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "BuiltinCommonInstructions::Standard",
+                  "conditions": [],
+                  "actions": []
                 }
               ]
             },
