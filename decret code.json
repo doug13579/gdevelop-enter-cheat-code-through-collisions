@@ -1346,7 +1346,7 @@
                     "NewText2",
                     "Text",
                     "=",
-                    "\"Current test code: \" + VariableString(testCode) "
+                    "\"Current test code: \" + testCode"
                   ]
                 },
                 {
