@@ -170,22 +170,40 @@
       ],
       "variables": [
         {
+          "name": "code",
+          "type": "array",
+          "children": [
+            {
+              "folded": true,
+              "type": "string",
+              "value": "UUUUU"
+            },
+            {
+              "folded": true,
+              "type": "string",
+              "value": "UDUDU"
+            },
+            {
+              "folded": true,
+              "type": "string",
+              "value": "RDLUR"
+            },
+            {
+              "type": "string",
+              "value": "LRLRL"
+            },
+            {
+              "folded": true,
+              "type": "string",
+              "value": "DUDRL"
+            }
+          ]
+        },
+        {
           "folded": true,
           "name": "counter",
           "type": "number",
           "value": 0
-        },
-        {
-          "folded": true,
-          "name": "code",
-          "type": "array",
-          "children": []
-        },
-        {
-          "folded": true,
-          "name": "chr",
-          "type": "string",
-          "value": ""
         },
         {
           "folded": true,
@@ -326,7 +344,7 @@
           "customSize": false,
           "height": 0,
           "layer": "",
-          "name": "NewText",
+          "name": "codeText",
           "persistentUuid": "af24e459-3f58-40ef-a7b4-be01740bd0b5",
           "width": 0,
           "x": 115,
@@ -341,7 +359,7 @@
           "customSize": false,
           "height": 0,
           "layer": "",
-          "name": "NewText2",
+          "name": "currentCodeText",
           "persistentUuid": "3b6213f9-a3e7-45b7-a4b3-a07d482ad4f5",
           "width": 0,
           "x": 854,
@@ -356,7 +374,7 @@
           "customSize": false,
           "height": 0,
           "layer": "",
-          "name": "NewText3",
+          "name": "latCodeText",
           "persistentUuid": "dbff99c5-c4e6-41b3-8dfb-38842f8bd040",
           "width": 0,
           "x": 126,
@@ -747,14 +765,14 @@
           "assetStoreId": "",
           "bold": false,
           "italic": false,
-          "name": "NewText",
+          "name": "codeText",
           "smoothed": true,
           "type": "TextObject::Text",
           "underlined": false,
           "variables": [],
           "effects": [],
           "behaviors": [],
-          "string": "Text",
+          "string": "Codes:\n",
           "font": "",
           "textAlignment": "left",
           "characterSize": 20,
@@ -768,14 +786,14 @@
           "assetStoreId": "",
           "bold": false,
           "italic": false,
-          "name": "NewText2",
+          "name": "currentCodeText",
           "smoothed": true,
           "type": "TextObject::Text",
           "underlined": false,
           "variables": [],
           "effects": [],
           "behaviors": [],
-          "string": "Text",
+          "string": "Current test code",
           "font": "",
           "textAlignment": "left",
           "characterSize": 20,
@@ -789,7 +807,7 @@
           "assetStoreId": "",
           "bold": false,
           "italic": false,
-          "name": "NewText3",
+          "name": "latCodeText",
           "smoothed": true,
           "type": "TextObject::Text",
           "underlined": false,
@@ -826,17 +844,29 @@
             "objectName": "player"
           },
           {
-            "objectName": "NewText"
+            "objectName": "codeText"
           },
           {
-            "objectName": "NewText2"
+            "objectName": "currentCodeText"
           },
           {
-            "objectName": "NewText3"
+            "objectName": "latCodeText"
           }
         ]
       },
       "events": [
+        {
+          "type": "BuiltinCommonInstructions::Comment",
+          "color": {
+            "b": 109,
+            "g": 230,
+            "r": 255,
+            "textB": 0,
+            "textG": 0,
+            "textR": 0
+          },
+          "comment": "We need to set testCode to \"\" otherwise it's 0, IDKW they don't fix it."
+        },
         {
           "type": "BuiltinCommonInstructions::Standard",
           "conditions": [
@@ -852,57 +882,12 @@
           "actions": [
             {
               "type": {
-                "value": "SceneVariablePushString"
+                "value": "DebuggerTools::ConsoleLog"
               },
               "parameters": [
-                "code",
-                "\"RLRUD\""
-              ]
-            },
-            {
-              "type": {
-                "value": "SceneVariablePushString"
-              },
-              "parameters": [
-                "code",
-                "\"UDUDU\""
-              ]
-            },
-            {
-              "type": {
-                "value": "SceneVariablePushString"
-              },
-              "parameters": [
-                "code",
-                "\"DRDRD\""
-              ]
-            },
-            {
-              "type": {
-                "value": "SceneVariablePushString"
-              },
-              "parameters": [
-                "code",
-                "\"DRLDU\""
-              ]
-            },
-            {
-              "type": {
-                "value": "SceneVariablePushString"
-              },
-              "parameters": [
-                "code",
-                "\"UUUUU\""
-              ]
-            },
-            {
-              "type": {
-                "value": "ModVarScene"
-              },
-              "parameters": [
-                "counter",
-                "=",
-                "0"
+                "testCode",
+                "",
+                ""
               ]
             },
             {
@@ -911,28 +896,6 @@
               },
               "parameters": [
                 "testCode",
-                "=",
-                "\"\""
-              ]
-            },
-            {
-              "type": {
-                "value": "TextContainerCapability::TextContainerBehavior::SetValue"
-              },
-              "parameters": [
-                "NewText",
-                "Text",
-                "=",
-                "\"Codes\" + NewLine()"
-              ]
-            },
-            {
-              "type": {
-                "value": "TextContainerCapability::TextContainerBehavior::SetValue"
-              },
-              "parameters": [
-                "NewText2",
-                "Text",
                 "=",
                 "\"\""
               ]
@@ -951,7 +914,7 @@
                     "value": "TextContainerCapability::TextContainerBehavior::SetValue"
                   },
                   "parameters": [
-                    "NewText",
+                    "codeText",
                     "Text",
                     "+",
                     "VariableString(childIndex)+\": \" +VariableString(child)+ NewLine()"
@@ -1000,95 +963,47 @@
               "iterableVariableName": "code",
               "valueIteratorVariableName": "child",
               "keyIteratorVariableName": "childIndex",
-              "conditions": [],
-              "actions": [],
-              "events": [
-                {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [],
-                  "actions": []
-                },
-                {
-                  "type": "BuiltinCommonInstructions::Standard",
-                  "conditions": [
-                    {
-                      "type": {
-                        "value": "BuiltinCommonInstructions::CompareStrings"
-                      },
-                      "parameters": [
-                        "testCode+ CodeGroup.ID",
-                        "=",
-                        "SubStr(child, 0,counter+1)"
-                      ]
-                    }
-                  ],
-                  "actions": [
-                    {
-                      "type": {
-                        "value": "SetSceneVariableAsBoolean"
-                      },
-                      "parameters": [
-                        "match",
-                        "True"
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "Flash::Flash::Flash"
-                      },
-                      "parameters": [
-                        "CodeGroup",
-                        "Flash",
-                        "1",
-                        ""
-                      ]
-                    },
-                    {
-                      "type": {
-                        "value": "ModVarScene"
-                      },
-                      "parameters": [
-                        "codeChildMatch",
-                        "=",
-                        "childIndex"
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "BuiltinCommonInstructions::Standard",
               "conditions": [
                 {
                   "type": {
-                    "value": "SceneVariableAsBoolean"
+                    "value": "BuiltinCommonInstructions::CompareStrings"
                   },
                   "parameters": [
-                    "match",
-                    "True"
+                    "testCode+ CodeGroup.ID",
+                    "=",
+                    "SubStr(child, 0,counter+1)"
                   ]
                 }
               ],
               "actions": [
                 {
                   "type": {
-                    "value": "ModVarScene"
+                    "value": "SetSceneVariableAsBoolean"
                   },
                   "parameters": [
-                    "counter",
-                    "+",
-                    "1"
+                    "match",
+                    "True"
                   ]
                 },
                 {
                   "type": {
-                    "value": "ModVarSceneTxt"
+                    "value": "Flash::Flash::Flash"
                   },
                   "parameters": [
-                    "testCode",
-                    "+",
-                    "CodeGroup.ID"
+                    "CodeGroup",
+                    "Flash",
+                    "1",
+                    ""
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "ModVarScene"
+                  },
+                  "parameters": [
+                    "codeChildMatch",
+                    "=",
+                    "childIndex"
                   ]
                 }
               ]
@@ -1135,6 +1050,42 @@
                     "codeChildMatch",
                     "=",
                     "-1"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BuiltinCommonInstructions::Standard",
+              "conditions": [
+                {
+                  "type": {
+                    "value": "SceneVariableAsBoolean"
+                  },
+                  "parameters": [
+                    "match",
+                    "True"
+                  ]
+                }
+              ],
+              "actions": [
+                {
+                  "type": {
+                    "value": "ModVarScene"
+                  },
+                  "parameters": [
+                    "counter",
+                    "+",
+                    "1"
+                  ]
+                },
+                {
+                  "type": {
+                    "value": "ModVarSceneTxt"
+                  },
+                  "parameters": [
+                    "testCode",
+                    "+",
+                    "CodeGroup.ID"
                   ]
                 }
               ]
@@ -1207,7 +1158,7 @@
                         "value": "TextContainerCapability::TextContainerBehavior::SetValue"
                       },
                       "parameters": [
-                        "NewText3",
+                        "latCodeText",
                         "Text",
                         "+",
                         "\"code 0\" + NewLine()"
@@ -1235,7 +1186,7 @@
                         "value": "TextContainerCapability::TextContainerBehavior::SetValue"
                       },
                       "parameters": [
-                        "NewText3",
+                        "latCodeText",
                         "Text",
                         "+",
                         "\"code 1\" + NewLine()"
@@ -1263,7 +1214,7 @@
                         "value": "TextContainerCapability::TextContainerBehavior::SetValue"
                       },
                       "parameters": [
-                        "NewText3",
+                        "latCodeText",
                         "Text",
                         "+",
                         "\"code 2\" + NewLine()"
@@ -1291,7 +1242,7 @@
                         "value": "TextContainerCapability::TextContainerBehavior::SetValue"
                       },
                       "parameters": [
-                        "NewText3",
+                        "latCodeText",
                         "Text",
                         "+",
                         "\"code 3\" + NewLine()"
@@ -1319,7 +1270,7 @@
                         "value": "TextContainerCapability::TextContainerBehavior::SetValue"
                       },
                       "parameters": [
-                        "NewText3",
+                        "latCodeText",
                         "Text",
                         "+",
                         "\"code 4\" + NewLine()"
@@ -1343,7 +1294,7 @@
                     "value": "TextContainerCapability::TextContainerBehavior::SetValue"
                   },
                   "parameters": [
-                    "NewText2",
+                    "currentCodeText",
                     "Text",
                     "=",
                     "\"Current test code: \" + testCode"
@@ -1354,7 +1305,7 @@
                     "value": "TextContainerCapability::TextContainerBehavior::SetValue"
                   },
                   "parameters": [
-                    "NewText2",
+                    "currentCodeText",
                     "Text",
                     "+",
                     "NewLine()+\"Counter: \" + counter"
